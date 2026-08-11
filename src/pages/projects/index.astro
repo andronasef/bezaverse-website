@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort((a, b) => b.data.year.localeCompare(a.data.year));
+---
+
+<BaseLayout title="Selected projects">
+  <section class="page-hero page-hero-light">
+    <p class="eyebrow" data-reveal>Our Work</p>
+    <h1 data-reveal>What we’re most<br /><em>proud of.</em></h1>
+    <p class="hero-lede" data-reveal>No need to juggle multiple agencies. Our global team handles websites, mobile apps, branding, SaaS products, and web development under one roof.</p>
+  </section>
+  <section class="section projects-page-section">
+    <div class="projects-grid projects-grid-page">{projects.map((project, index) => <ProjectCard index={index} slug={project.slug} {...project.data} />)}</div>
+  </section>
+</BaseLayout>

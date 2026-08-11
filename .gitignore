@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.tmp/
+.gstack/
+browse-state/
+*.log
+*-qa.png
+local-home-*.png
+reference-home-*.png

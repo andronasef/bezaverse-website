@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+
+const imageRoot = 'https://b4550151.smushcdn.com/4550151/wp-content/uploads';
+
+const serviceCards = [
+  { title: 'UI/UX Design', image: `${imageRoot}/2025/06/ui-ux-service.webp` },
+  { title: 'Web Development', image: `${imageRoot}/2025/06/web-developement.webp` },
+  { title: 'Web Design', image: `${imageRoot}/2025/02/web_design_service_image.webp` },
+  { title: 'Mobile App Design', image: `${imageRoot}/2025/06/mobile-app.webp` },
+];
+
+const logos = ['Blanqs', 'Crecer', 'Berlitz', 'Fortified Roofing', 'Tele Training', 'Ace', 'ELBA Hope', 'Fiction Profits', 'Crocs', 'GunMade', 'Microsoft', 'Mars'];
+
+const portfolio = [
+  { title: 'Sixpay', type: 'Business Banking UI UX Design', image: `${imageRoot}/2025/03/sixpay-home-loop.webp`, className: 'portfolio-featured' },
+  { title: 'Userpath', type: 'SaaS Web Design', image: `${imageRoot}/2025/03/userpath-home-loop.webp`, className: 'portfolio-wide' },
+  { title: 'Sereni Mind', type: 'Mental Health App Design', image: `${imageRoot}/2025/03/sereni-mind-home-loop.webp`, className: 'portfolio-small' },
+  { title: 'Webtool', type: 'Website Design', image: `${imageRoot}/2025/07/webtool.png`, className: 'portfolio-small' },
+];
+
+const proof = [
+  ['200+', 'Projects Completed'],
+  ['50+', 'Skilled Experts'],
+  ['92%', 'Client Retention Rate'],
+  ['15+', 'Years of Experience'],
+  ['48hr', 'Average Response Time'],
+  ['$2B+', 'Revenue Impacted'],
+];
+
+const faqs = [
+  ['What UI/UX design services does six2eight provide?', 'We provide complete UX and UI design for web, SaaS, and mobile products, including research, wireframing, prototyping, usability testing, and polished UI design.'],
+  ['How does six2eight approach user-centered design?', 'We start with actual user needs and business goals, then validate clear concepts before building detail into the experience.'],
+  ['What industries does six2eight specialize in?', 'Our work spans SaaS, fintech, healthcare, eCommerce, education, and enterprise platforms.'],
+  ['How does six2eight balance UI/UX design with technical development?', 'Designers and developers collaborate from the start, so every visual decision can become a high-performing production experience.'],
+  ['What is six2eight’s process for building high-performing websites?', 'We move from strategy and wireframes to detailed UI, development, testing, and launch with clear milestones throughout.'],
+  ['How long does a typical website design and development project take?', 'Most projects run eight to twelve weeks, depending on scope and the number of product decisions involved.'],
+];
+---
+
+<BaseLayout title="Custom UI UX Design & Web Development Agency">
+  <div class="clone-home">
+    <section class="clone-hero section-dark">
+      <div class="clone-shell clone-hero-grid">
+        <div class="clone-hero-copy" data-reveal>
+          <p class="clone-kicker">UI UX Design &amp;<br />Web Development Agency</p>
+          <h1>Custom UI UX Design &amp; Web Development Agency</h1>
+          <p>We design high-performing websites, mobile apps, and SaaS platforms that delight users. And we build websites that turn those experiences into results.</p>
+          <a class="clone-lime-button" href="#contact">Book a Call <span>↗</span></a>
+          <div class="clone-social-proof"><span>4.9 / 5</span><i></i><i></i><i></i><i></i><i></i><small>Trusted by growing teams</small></div>
+        </div>
+        <div class="clone-hero-collage" aria-label="A collage of mobile product interfaces" data-reveal>
+          <div class="hero-sphere"></div>
+          <img class="hero-phone hero-phone-back" src={`${imageRoot}/2025/06/hero-10.webp`} alt="Mobile product interface" />
+          <img class="hero-phone hero-phone-main" src={`${imageRoot}/2025/06/hero-5.webp`} alt="Mobile product interface" />
+          <img class="hero-phone hero-phone-front" src={`${imageRoot}/2025/06/hero-11.webp`} alt="Mobile product interface" />
+        </div>
+      </div>
+      <div class="clone-hero-work clone-shell" data-reveal>
+        <div class="clone-work-copy"><span class="clone-green-dot"></span><span>Work we do</span></div>
+        <img src="https://six2eight.com/_next/static/media/works_group.00m_qx-lddkj2.webp" alt="Work we do" />
+      </div>
+    </section>
+
+    <section id="services" class="clone-services section-dark">
+      <div class="clone-shell">
+        <div class="clone-service-heading" data-reveal>
+          <span class="clone-tag">Services</span>
+          <h2>We help you design<br />and build better digital<br />products. All in ONE<br />place!</h2>
+          <p>You need a partner who gets your business and covers everything. From branding to UI/UX design and web development, you can rely on us for everything.</p>
+          <a class="clone-outline-button" href={`${base}projects`}>See All Services <span>↗</span></a>
+        </div>
+        <div class="clone-service-rail" aria-label="Services">
+          {serviceCards.map((card) => <article class="clone-service-card" data-reveal><img src={card.image} alt={card.title} loading="lazy" /><h3>{card.title}</h3></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="clone-client-logos section-dark">
+      <div class="clone-shell" data-reveal>
+        <p class="clone-logo-label">Projects completed for</p>
+        <div>{logos.map((logo) => <span>{logo}</span>)}</div>
+      </div>
+    </section>
+
+    <section class="clone-portfolio">
+      <div class="clone-shell">
+        <h2 data-reveal>Our portfolio</h2>
+        <div class="clone-filters" data-reveal><button class="is-active">All</button><button>Website Design</button><button>Web Development</button><button>UI/UX Design</button><button>WordPress</button></div>
+        <div class="clone-portfolio-board">
+          {portfolio.map((item) => <article class:list={['clone-portfolio-card', item.className]} data-reveal><img src={item.image} alt={item.title} loading="lazy" /><div><span>{item.type}</span><h3>{item.title}</h3></div></article>)}
+        </div>
+        <a class="clone-dark-button" href={`${base}projects`} data-reveal>View All Work <span>↗</span></a>
+      </div>
+    </section>
+
+    <section class="clone-testimonials">
+      <div class="clone-shell">
+        <div class="clone-review-heading" data-reveal><span class="clone-tag clone-tag-dark">Testimonials</span><h2>Words from the People<br />We’ve Worked With</h2></div>
+        <div class="clone-review-grid">
+          <article data-reveal><div class="review-avatar">D</div><b>DailyTime</b><p>“Responses were fast, things didn’t get messy, and the process actually made sense. You don’t always get that with designers, so it was refreshing.”</p></article>
+          <article data-reveal><div class="review-avatar review-avatar-violet">V</div><b>Vizerto</b><p>“They made sure the app felt simple to use without losing any of the bells and whistles. Everything just worked better after their touch.”</p></article>
+        </div>
+        <div class="clone-review-footer" data-reveal><span>←&nbsp;&nbsp;○</span><small>200+ Happy Customers based on<br />compliments and reviews</small><a class="clone-lime-button" href="#contact">Book a Free Consultation</a></div>
+      </div>
+    </section>
+
+    <section class="clone-proof section-dark">
+      <div class="clone-shell">
+        <div class="clone-proof-heading" data-reveal><span class="clone-tag">Why Bezaverse</span><h2>Why brands choose Bezaverse<br />for design &amp; development?</h2></div>
+        <div class="clone-proof-grid">{proof.map(([number, label]) => <article data-reveal><strong>{number}</strong><span>{label}</span><p>Focused work, clear communication, and a product experience built to move the right metric.</p></article>)}</div>
+      </div>
+    </section>
+
+    <section class="clone-process section-dark">
+      <div class="clone-shell clone-process-grid">
+        <div class="clone-process-copy" data-reveal><span class="clone-tag">Our process</span><h2>How We Get<br />It Done.</h2><p>We listen, we design, we build. Our process is clear, collaborative, and focused on work your team can use.</p></div>
+        <div class="clone-process-visual" data-reveal><div class="process-tabs"><span>Discovery</span><span>Design</span><span>Development</span></div><div></div></div>
+        <article class="clone-consult-card" data-reveal><div><span class="clone-tag clone-tag-dark">Let’s talk</span><h3>Consult strategy to<br />build stronger product</h3><p>We’ll help you understand your product, your users, and the next smart move.</p><a class="clone-lime-button" href="#contact">Book a Free Consultation</a></div><img src={`${imageRoot}/2026/07/thumb.webp`} alt="Product strategy consultation" loading="lazy" /></article>
+      </div>
+    </section>
+
+    <section class="clone-faq">
+      <div class="clone-shell clone-faq-grid">
+        <div class="clone-faq-intro" data-reveal><img src="https://six2eight.com/faqImage.webp" alt="Frequently asked questions illustration" loading="lazy" /><h2>Clear answers to<br />move forward<br />confidently</h2><a class="clone-lime-button" href="#contact">See FAQ</a></div>
+        <div class="clone-faq-content"><span class="clone-tag clone-tag-dark" data-reveal>FAQ</span><h2 data-reveal>Got Questions? Let’s<br />Clear Things Up.</h2><div>{faqs.map(([question, answer], index) => <details data-reveal open={index === 0}><summary>{question}<b>⌄</b></summary><p>{answer}</p></details>)}</div></div>
+      </div>
+    </section>
+
+    <section id="contact" class="clone-contact section-dark">
+      <div class="clone-shell clone-contact-card">
+        <article class="clone-contact-review" data-reveal><span class="clone-tag clone-tag-dark">Love &amp; praise</span><h2>15 years in business and I rarely say this, but this team nailed it.</h2><p>Issues were fixed fast, and the work was solid. Will definitely reach out for the next project.</p><div><span class="review-avatar review-avatar-violet">C</span><b>Core &amp; More</b></div></article>
+        <form class="clone-contact-form" data-reveal>
+          <span class="clone-tag clone-tag-dark">Let’s talk</span><h2>Let’s Talk About Your<br />Project</h2>
+          <p>Fill in the form and we’ll be in touch shortly.</p>
+          <div class="clone-form-row"><label>First name<input name="firstName" required placeholder="First name" /></label><label>Last name<input name="lastName" required placeholder="Last name" /></label></div>
+          <div class="clone-form-row"><label>Email<input name="email" type="email" required placeholder="Your email" /></label><label>Phone<input name="phone" placeholder="Phone number" /></label></div>
+          <label>Message<textarea name="message" rows="3" required placeholder="Tell us about your project"></textarea></label>
+          <button class="clone-lime-button" type="submit">Get In Touch <span>↗</span></button>
+          <output class="clone-form-message" aria-live="polite"></output>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const form = document.querySelector('.clone-contact-form');
+    const message = form?.querySelector('.clone-form-message');
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (form instanceof HTMLFormElement && form.checkValidity()) {
+        form.reset();
+        if (message) message.textContent = 'Thanks. Your message is ready to send.';
+      } else if (message) {
+        message.textContent = 'Please complete the required fields.';
+      }
+    });
+  </script>
+</BaseLayout>

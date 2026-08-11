@@ -1,0 +1,50 @@
+---
+import { site } from '../data/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<header class="site-header" data-header>
+  <a class="brand brand-bezaverse" href={base} aria-label={`${site.name} home`}>
+    <svg class="brand-symbol" viewBox="0 0 120 120" aria-hidden="true">
+      <ellipse class="brand-orbit" cx="60" cy="60" rx="56" ry="25" />
+      <path d="M31 18V102M31 18H62a21 21 0 0 1 0 42H31M31 60H68a21 21 0 0 1 0 42H31" />
+    </svg>
+    <span class="brand-wordmark"><b>B</b>ezaverse</span>
+  </a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>
+    <span class="sr-only">Toggle navigation</span>
+    <span class="menu-label" data-menu-label>Menu</span>
+    <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+  </button>
+  <nav id="primary-nav" class="primary-nav" data-nav aria-label="Primary navigation">
+    <a href={base}>Home</a>
+    <a href={`${base}#services`}>Services</a>
+    <a href={`${base}projects`}>Work</a>
+    <a href={`${base}about`}>About Us</a>
+    <a href={`${base}contact`} class="nav-cta">Book a Call <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const nav = document.querySelector('[data-nav]');
+  const label = document.querySelector('[data-menu-label]');
+  const closeMenu = () => {
+    toggle?.setAttribute('aria-expanded', 'false');
+    nav?.removeAttribute('data-open');
+    document.body.removeAttribute('data-menu-open');
+    if (label) label.textContent = 'Menu';
+  };
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    nav?.toggleAttribute('data-open', !open);
+    document.body.toggleAttribute('data-menu-open', !open);
+    if (label) label.textContent = open ? 'Menu' : 'Close';
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+</script>

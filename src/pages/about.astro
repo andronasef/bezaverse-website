@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionIntro from '../components/SectionIntro.astro';
+import { services } from '../data/site';
+---
+
+<BaseLayout title="About the studio">
+  <section class="page-hero section-dark">
+    <p class="eyebrow" data-reveal>About Us</p>
+    <h1 data-reveal>Design that makes<br /><em>business sense.</em></h1>
+    <p class="hero-lede" data-reveal>We design and build digital products that help ambitious businesses sharpen their story, delight their users, and grow with confidence.</p>
+  </section>
+  <section class="section about-intro">
+    <SectionIntro eyebrow="Our approach" title="The best digital products feel <em>simple after the hard work.</em>" copy="We bring strategy, design, and development into the same conversation early. That means fewer handoffs, faster learning, and work your team can actually build on." />
+    <div class="about-image" data-reveal><img src="https://b4550151.smushcdn.com/4550151/wp-content/uploads/2025/06/Container-7.webp" alt="A collaborative product design moment" /></div>
+  </section>
+  <section class="section section-lime values-section">
+    <p class="eyebrow" data-reveal>What you can expect</p>
+    <div class="values-grid">
+      <article data-reveal><span>01</span><h2>Ask better questions.</h2><p>We look for the problem underneath the request, then make the path forward visible.</p></article>
+      <article data-reveal><span>02</span><h2>Keep the work close.</h2><p>Designers and developers work together from the first useful sketch to the last quality check.</p></article>
+      <article data-reveal><span>03</span><h2>Leave things stronger.</h2><p>We build systems, not single-use screens, so your team can keep moving after launch.</p></article>
+    </div>
+  </section>
+  <section class="section services-section">
+    <SectionIntro eyebrow="Capabilities" title="The right mix for <em>what’s next.</em>" />
+    <div class="service-list">{services.map((service) => <article class="service-row" data-reveal><span>{service.number}</span><h3>{service.title}</h3><p>{service.text}</p><span class="service-arrow" aria-hidden="true">↗</span></article>)}</div>
+  </section>
+</BaseLayout>
