@@ -51,6 +51,7 @@ body:has(.hero.section-dark) .site-header, body:has(.page-hero.section-dark) .si
 .menu-toggle { display: none; color: inherit; border: 0; background: transparent; }
 .menu-icon { display: inline-grid; gap: 0.25rem; }
 .menu-icon i { display: block; width: 1.35rem; height: 1px; background: currentColor; }
+.mobile-dock { display: none; }
 
 .section, .page-hero, .hero { padding-inline: clamp(1.25rem, 5vw, 6.5rem); }
 .section { padding-block: clamp(5rem, 10vw, 10rem); }
@@ -523,4 +524,17 @@ body:has(.clone-home) .site-header, body:has(.page-hero.section-dark) .site-head
 
 @media (prefers-reduced-motion: reduce) {
   .brand-orbit, .hero-sphere, .hero-phone-main, .hero-phone-back, .hero-phone-front { animation: none; }
+}
+
+@media (max-width: 760px) {
+  body { padding-bottom: 5.8rem; }
+  .site-header > .menu-toggle { display: none; }
+  .mobile-dock { position: fixed; z-index: 40; left: 50%; bottom: .6rem; display: grid; grid-template-columns: repeat(5, 1fr); align-items: end; width: min(calc(100% - 1rem), 34rem); min-height: 4.7rem; padding: .45rem .4rem .35rem; border: 1px solid rgb(201 166 255 / 20%); border-radius: 1.15rem; color: #f3efff; background: rgb(10 7 19 / 94%); box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 44%); transform: translateX(-50%); backdrop-filter: blur(18px); }
+  .mobile-dock > a, .mobile-dock > button { display: grid; justify-items: center; gap: .28rem; min-width: 0; padding: .4rem .12rem; border: 0; color: #c9a6ff; background: transparent; font-size: .58rem; font-weight: 800; line-height: 1; }
+  .mobile-dock svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .mobile-dock > a:hover, .mobile-dock > a:focus-visible, .mobile-dock > button:hover, .mobile-dock > button:focus-visible { color: #fff; }
+  .mobile-dock-action { align-self: start; width: 3.25rem; height: 3.25rem; margin-top: -1.75rem; padding: 0 !important; border: .35rem solid #100a20 !important; border-radius: 50%; color: #160e2e !important; background: #8a3ffc !important; box-shadow: 0 0 .9rem rgb(138 63 252 / 70%), 0 .55rem 1rem rgb(0 0 0 / 35%); }
+  .mobile-dock-action svg { width: 1.55rem; height: 1.55rem; stroke-width: 2.1; }
+  .mobile-dock-more { cursor: pointer; }
+  body[data-menu-open] .mobile-dock-more { color: #ffc44d; }
 }
