@@ -33,13 +33,17 @@ const { title = site.name, description = site.description } = Astro.props;
       const reveals = document.querySelectorAll<HTMLElement>('[data-reveal]');
       if (!reduced) {
         reveals.forEach((element) => {
-          gsap.fromTo(element, { y: 28, opacity: 0 }, {
-            y: 0,
-            opacity: 1,
-            duration: 0.72,
-            ease: 'power3.out',
-            clearProps: 'transform',
-            scrollTrigger: { trigger: element, start: 'top 86%', once: true },
+          ScrollTrigger.create({
+            trigger: element,
+            start: 'top 86%',
+            once: true,
+            onEnter: () => gsap.fromTo(element, { y: 22, opacity: 0.45 }, {
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              ease: 'power3.out',
+              clearProps: 'transform',
+            }),
           });
         });
         gsap.to('.brand-orbit', { rotation: 360, transformOrigin: '50% 50%', duration: 28, repeat: -1, ease: 'none' });

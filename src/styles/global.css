@@ -264,14 +264,29 @@ blockquote cite { display: block; margin-top: 2.2rem; color: var(--muted); font-
 .clone-process-copy h2 { margin: .7rem 0; color: #fff; font-size: clamp(2.2rem,4vw,3.6rem); line-height: .9; letter-spacing: -.07em; }
 .clone-process-copy p { max-width: 26rem; color: #9a9a9a; font-size: .75rem; line-height: 1.6; }
 .clone-process-visual { padding: .5rem; border-radius: .45rem; background: #0f0f0f; }
-.process-tabs { display: flex; gap: 1.2rem; padding: .55rem .3rem .8rem; color: #818181; font-size: .56rem; }
-.process-tabs span:first-child { color: #97f500; }
-.clone-process-visual > div:last-child { min-height: 220px; border-radius: .35rem; background: linear-gradient(135deg,#202b43,#0d1626); }
+.process-tabs { display: flex; gap: .35rem; padding: .2rem .1rem .7rem; }
+.process-tabs button { padding: .5rem .65rem; border: 0; border-radius: .25rem; color: #a89eb8; background: transparent; font-size: .58rem; transition: color 180ms ease, background 180ms ease; }
+.process-tabs button[aria-selected='true'] { color: #fff; background: #8a3ffc; }
+.process-stage { position: relative; min-height: 220px; display: grid; grid-template-columns: auto 1fr auto; gap: 1.1rem; align-items: end; overflow: hidden; padding: 1.3rem; border-radius: .35rem; color: #fff; background: linear-gradient(135deg,#202b43,#0d1626); }
+.process-stage-number { align-self: start; color: #c9a6ff; font-size: .65rem; font-weight: 800; letter-spacing: .08em; }
+.process-stage-label { color: #c9a6ff; font-size: .58rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.process-stage h3 { margin: .3rem 0 .45rem; font-size: clamp(1.4rem,2.8vw,2.45rem); line-height: .92; letter-spacing: -.065em; }
+.process-stage div > p:last-child { max-width: 22rem; color: #c6bfd5; font-size: .68rem; line-height: 1.55; }
+.process-stage-orbit { position: relative; width: 112px; height: 112px; border: 1px solid rgb(255 196 77 / 75%); border-radius: 50%; transform: rotate(-22deg); }
+.process-stage-orbit i { position: absolute; display: block; border: 1px solid rgb(201 166 255 / 36%); border-radius: 50%; }
+.process-stage-orbit i:nth-child(1) { inset: 15px -21px; }
+.process-stage-orbit i:nth-child(2) { inset: 31px -9px; }
+.process-stage-orbit i:nth-child(3) { width: 11px; height: 11px; top: 8px; right: 13px; border: 0; background: #8a3ffc; }
 .clone-consult-card { grid-column: 1 / -1; display: grid; grid-template-columns: 1.1fr .9fr; overflow: hidden; border-radius: .45rem; background: #fff; color: #111; }
-.clone-consult-card > div { padding: 1.6rem; }
+.clone-consult-copy { padding: 1.6rem; }
 .clone-consult-card h3 { margin: 1.1rem 0 .7rem; font-size: clamp(1.25rem,2.6vw,2.2rem); line-height: 1; letter-spacing: -.065em; }
 .clone-consult-card p { max-width: 28rem; color: #6a6a6a; font-size: .7rem; line-height: 1.55; }
-.clone-consult-card img { width: 100%; height: 100%; min-height: 250px; object-fit: cover; }
+.clone-consult-outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; padding: 1.2rem; background: #f0e9ff; }
+.clone-consult-outcomes article { display: grid; align-content: start; gap: .5rem; min-height: 112px; padding: .85rem; border: 1px solid rgb(138 63 252 / 18%); border-radius: .35rem; background: #fff; box-shadow: 0 5px 14px rgb(22 14 46 / 8%); }
+.clone-consult-outcomes article:last-child { grid-column: 1 / -1; }
+.clone-consult-outcomes span { color: #8a3ffc; font-size: .62rem; font-weight: 800; }
+.clone-consult-outcomes b { font-size: .75rem; letter-spacing: -.03em; }
+.clone-consult-outcomes p { margin: 0; color: #6b5a94; font-size: .61rem; }
 .clone-faq { padding: 4rem 0; background: #fff; }
 .clone-faq-grid { display: grid; grid-template-columns: .78fr 1.22fr; gap: 4rem; }
 .clone-faq-intro img { width: 140px; margin-bottom: 1.1rem; }
@@ -290,6 +305,7 @@ blockquote cite { display: block; margin-top: 2.2rem; color: var(--muted); font-
 .clone-contact-review p { max-width: 26rem; color: #666; font-size: .74rem; line-height: 1.6; }
 .clone-contact-review > div { display: flex; align-items: center; margin-top: 2rem; }
 .clone-contact-form { display: grid; gap: .85rem; padding: 1.6rem; }
+.clone-contact-form > .clone-tag { width: fit-content; justify-self: start; align-self: start; }
 .clone-contact-form h2 { margin: .2rem 0; font-size: clamp(1.35rem,2.5vw,2.25rem); line-height: .98; letter-spacing: -.065em; }
 .clone-contact-form > p { margin: 0 0 .3rem; color: #686868; font-size: .68rem; }
 .clone-form-row { display: grid; grid-template-columns: repeat(2,1fr); gap: .6rem; }
@@ -336,9 +352,12 @@ blockquote cite { display: block; margin-top: 2.2rem; color: var(--muted); font-
   .clone-proof-grid p { margin-top: 1rem; }
   .clone-process { padding: 2.8rem 0; }
   .clone-process-grid, .clone-faq-grid, .clone-contact-card { grid-template-columns: 1fr; }
-  .clone-process-visual > div:last-child { min-height: 150px; }
+  .process-stage { min-height: 175px; grid-template-columns: 1fr auto; }
+  .process-stage-number { grid-column: 1 / -1; }
+  .process-stage-orbit { width: 78px; height: 78px; }
   .clone-consult-card { grid-template-columns: 1fr; }
-  .clone-consult-card img { min-height: 185px; max-height: 230px; }
+  .clone-consult-outcomes { grid-template-columns: 1fr; }
+  .clone-consult-outcomes article:last-child { grid-column: auto; }
   .clone-faq { padding: 2.8rem 0; }
   .clone-faq-intro { display: grid; grid-template-columns: 110px 1fr; column-gap: 1rem; align-items: center; }
   .clone-faq-intro img { width: 95px; grid-row: span 2; margin: 0; }
@@ -412,6 +431,7 @@ blockquote cite { display: block; margin-top: 2.2rem; color: var(--muted); font-
 body:has(.clone-home) .site-header, body:has(.page-hero.section-dark) .site-header, body:has(.project-detail-header) .site-header { color: var(--white); }
 .brand-bezaverse { gap: .55rem; font-family: "Space Grotesk", "Manrope", ui-sans-serif, system-ui, sans-serif; font-size: .92rem; letter-spacing: -.05em; }
 .brand-symbol { width: 2.1rem; height: 2.1rem; overflow: visible; }
+.brand-symbol-compact ellipse { display: none; }
 .brand-symbol path { fill: none; stroke: var(--accent); stroke-width: 14; stroke-linecap: butt; }
 .brand-symbol ellipse { fill: none; stroke: #ffc44d; stroke-width: 2; transform: rotate(-20deg); transform-origin: center; }
 .brand-wordmark { font-weight: 700; }
