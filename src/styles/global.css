@@ -441,6 +441,7 @@ body:has(.clone-home) .site-header, body:has(.page-hero.section-dark) .site-head
 .clone-home { background: var(--paper); color: var(--ink); }
 .clone-home .section-dark { background: var(--dark); color: var(--white); }
 .clone-tag, .clone-lime-button { background: var(--accent); color: #fff; }
+.clone-tag { width: fit-content; justify-self: start; }
 .clone-tag-dark { background: var(--surface, #211442); color: var(--white); }
 .clone-lime-button:hover, .clone-lime-button:focus-visible { background: #a66bff; }
 .clone-green-dot { background: #ffc44d; }
