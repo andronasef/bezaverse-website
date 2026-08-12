@@ -468,7 +468,8 @@ body:has(.clone-home) .site-header, body:has(.page-hero.section-dark) .site-head
 .clone-faq-content details { border-color: rgb(107 90 148 / 25%); }
 .clone-faq-content h2, .clone-faq-intro h2 { color: var(--ink); }
 .clone-faq-content details p { color: var(--muted); }
-.clone-contact-review { background: #e9ddff; }
+.clone-contact-review { display: flex; flex-direction: column; background: #e9ddff; }
+.clone-contact-review > div { margin-top: auto; padding-top: 2rem; }
 .clone-contact-review p, .clone-contact-form > p { color: var(--muted); }
 .clone-contact-form input, .clone-contact-form textarea { border-color: rgb(107 90 148 / 30%); color: var(--ink); background: #fff; }
 .clone-contact-form input:focus, .clone-contact-form textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgb(138 63 252 / 20%); }
