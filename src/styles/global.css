@@ -430,7 +430,8 @@ blockquote cite { display: block; margin-top: 2.2rem; color: var(--muted); font-
 
 .site-header { z-index: 30; color: var(--ink); }
 body:has(.clone-home) .site-header, body:has(.page-hero.section-dark) .site-header, body:has(.project-detail-header) .site-header { color: var(--white); }
-.brand-bezaverse { gap: .55rem; font-family: "Space Grotesk", "Manrope", ui-sans-serif, system-ui, sans-serif; font-size: .92rem; letter-spacing: -.05em; }
+.brand-bezaverse { gap: 0; font-family: "Space Grotesk", "Manrope", ui-sans-serif, system-ui, sans-serif; font-size: .92rem; letter-spacing: -.05em; }
+.brand-bezaverse .brand-symbol { margin-right: -.38em; }
 .brand-symbol { width: 2.1rem; height: 2.1rem; overflow: visible; }
 .brand-symbol path { fill: none; stroke: var(--accent); stroke-width: 14; stroke-linecap: butt; }
 .brand-wordmark { font-weight: 700; }
