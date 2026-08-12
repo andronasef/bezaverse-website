@@ -5,7 +5,6 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
 <footer class="site-footer section-dark brand-footer">
-  <div class="brand-footer-orbit" aria-hidden="true"></div>
   <div class="brand-footer-top" data-reveal>
     <p class="eyebrow">Start a new orbit</p>
     <h2>Build the system<br />behind your next<br /><em>big move.</em></h2>
@@ -14,10 +13,9 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   <div class="brand-footer-grid" data-reveal>
     <a class="brand brand-bezaverse brand-light" href={base} aria-label={`${site.name} home`}>
       <svg class="brand-symbol" viewBox="0 0 120 120" aria-hidden="true">
-        <ellipse class="brand-orbit" cx="60" cy="60" rx="56" ry="25" />
         <path d="M31 18V102M31 18H62a21 21 0 0 1 0 42H31M31 60H68a21 21 0 0 1 0 42H31" />
       </svg>
-      <span class="brand-wordmark"><b>B</b>ezaverse</span>
+      <span class="brand-wordmark">ezaverse</span>
     </a>
     <div class="brand-footer-links"><span>Explore</span><a href={base}>Home</a><a href={`${base}#services`}>Services</a><a href={`${base}projects`}>Projects</a><a href={`${base}about`}>About</a></div>
     <div class="brand-footer-links"><span>Connect</span><a href={`mailto:${site.email}`}>{site.email}</a><a href={`${base}contact`}>Start a project</a><a href="https://www.linkedin.com" rel="noreferrer">LinkedIn</a><a href="https://www.instagram.com" rel="noreferrer">Instagram</a></div>

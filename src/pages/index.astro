@@ -30,18 +30,12 @@ const proof = [
   ['$2B+', 'Revenue Impacted'],
 ];
 
-const processSteps = [
-  { number: '01', title: 'Discovery', detail: 'We align the business goal, the user need, and the success metric before design starts.' },
-  { number: '02', title: 'Design', detail: 'We turn the right insight into flows, interfaces, and prototypes your team can react to.' },
-  { number: '03', title: 'Development', detail: 'We build the experience with a clean handoff, responsive details, and a focused launch plan.' },
-];
-
 const faqs = [
-  ['What UI/UX design services does six2eight provide?', 'We provide complete UX and UI design for web, SaaS, and mobile products, including research, wireframing, prototyping, usability testing, and polished UI design.'],
-  ['How does six2eight approach user-centered design?', 'We start with actual user needs and business goals, then validate clear concepts before building detail into the experience.'],
-  ['What industries does six2eight specialize in?', 'Our work spans SaaS, fintech, healthcare, eCommerce, education, and enterprise platforms.'],
-  ['How does six2eight balance UI/UX design with technical development?', 'Designers and developers collaborate from the start, so every visual decision can become a high-performing production experience.'],
-  ['What is six2eight’s process for building high-performing websites?', 'We move from strategy and wireframes to detailed UI, development, testing, and launch with clear milestones throughout.'],
+  ['What UI/UX design services does Bezaverse provide?', 'We provide complete UX and UI design for web, SaaS, and mobile products, including research, wireframing, prototyping, usability testing, and polished UI design.'],
+  ['How does Bezaverse approach user-centered design?', 'We start with actual user needs and business goals, then validate clear concepts before building detail into the experience.'],
+  ['What industries does Bezaverse specialize in?', 'Our work spans SaaS, fintech, healthcare, eCommerce, education, and enterprise platforms.'],
+  ['How does Bezaverse balance UI/UX design with technical development?', 'Designers and developers collaborate from the start, so every visual decision can become a high-performing production experience.'],
+  ['What is Bezaverse’s process for building high-performing websites?', 'We move from strategy and wireframes to detailed UI, development, testing, and launch with clear milestones throughout.'],
   ['How long does a typical website design and development project take?', 'Most projects run eight to twelve weeks, depending on scope and the number of product decisions involved.'],
 ];
 ---
@@ -123,16 +117,6 @@ const faqs = [
     <section class="clone-process section-dark">
       <div class="clone-shell clone-process-grid">
         <div class="clone-process-copy" data-reveal><span class="clone-tag">Our process</span><h2>How We Get<br />It Done.</h2><p>We listen, we design, we build. Our process is clear, collaborative, and focused on work your team can use.</p></div>
-        <div class="clone-process-visual" data-reveal>
-          <div class="process-tabs" role="tablist" aria-label="Product process">
-            {processSteps.map((step, index) => <button type="button" role="tab" aria-selected={index === 0 ? 'true' : 'false'} data-process-tab data-process-index={index}>{step.title}</button>)}
-          </div>
-          <div class="process-stage" data-process-stage>
-            <span class="process-stage-number" data-process-number>{processSteps[0].number} / 03</span>
-            <div><p class="process-stage-label">Current focus</p><h3 data-process-title>{processSteps[0].title}</h3><p data-process-detail>{processSteps[0].detail}</p></div>
-            <div class="process-stage-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
-          </div>
-        </div>
         <article class="clone-consult-card" data-reveal>
           <div class="clone-consult-copy"><span class="clone-tag clone-tag-dark">Let’s talk</span><h3>Consult strategy to<br />build stronger product</h3><p>We’ll help you understand your product, your users, and the next smart move.</p><a class="clone-lime-button" href="#contact">Book a Free Consultation</a></div>
           <div class="clone-consult-outcomes" aria-label="Consultation outcomes"><article><span>01</span><b>Quick product audit</b><p>See what is slowing users down.</p></article><article><span>02</span><b>Growth direction</b><p>Choose the next highest-leverage move.</p></article><article><span>03</span><b>Expert perspective</b><p>Leave with a plan your team can use.</p></article></div>
@@ -175,23 +159,5 @@ const faqs = [
         message.textContent = 'Please complete the required fields.';
       }
     });
-
-    const processSteps = [
-      { number: '01', title: 'Discovery', detail: 'We align the business goal, the user need, and the success metric before design starts.' },
-      { number: '02', title: 'Design', detail: 'We turn the right insight into flows, interfaces, and prototypes your team can react to.' },
-      { number: '03', title: 'Development', detail: 'We build the experience with a clean handoff, responsive details, and a focused launch plan.' },
-    ];
-    const tabs = document.querySelectorAll<HTMLButtonElement>('[data-process-tab]');
-    const processNumber = document.querySelector('[data-process-number]');
-    const processTitle = document.querySelector('[data-process-title]');
-    const processDetail = document.querySelector('[data-process-detail]');
-    tabs.forEach((tab) => tab.addEventListener('click', () => {
-      const index = Number(tab.dataset.processIndex);
-      const step = processSteps[index];
-      tabs.forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
-      if (processNumber) processNumber.textContent = `${step.number} / 03`;
-      if (processTitle) processTitle.textContent = step.title;
-      if (processDetail) processDetail.textContent = step.detail;
-    }));
   </script>
 </BaseLayout>

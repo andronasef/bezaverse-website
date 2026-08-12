@@ -4,7 +4,7 @@ export const site = {
   description: 'Digital systems, product design, and web development for teams building what is next.',
   email: 'hello@bezaverse.com',
   phone: '+20 10 0000 0000',
-  location: 'Clayton, North Carolina · Working globally',
+  location: 'Cairo, Egypt - Working globally',
 };
 
 export const services = [

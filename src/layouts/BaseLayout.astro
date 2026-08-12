@@ -46,10 +46,7 @@ const { title = site.name, description = site.description } = Astro.props;
             }),
           });
         });
-        gsap.to('.brand-orbit', { rotation: 360, transformOrigin: '50% 50%', duration: 28, repeat: -1, ease: 'none' });
         gsap.to('.hero-sphere', { scale: 1.09, duration: 3.4, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-        gsap.to('.hero-phone-main', { y: -10, rotation: 1.5, duration: 3.6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-        gsap.to('.hero-phone-back, .hero-phone-front', { y: 8, duration: 4.2, repeat: -1, yoyo: true, ease: 'sine.inOut', stagger: 0.3 });
         document.querySelectorAll('.project-image-wrap img').forEach((image) => {
           image.addEventListener('mouseenter', () => gsap.to(image, { scale: 1.04, duration: 0.5, ease: 'power2.out' }));
           image.addEventListener('mouseleave', () => gsap.to(image, { scale: 1, duration: 0.5, ease: 'power2.out' }));
