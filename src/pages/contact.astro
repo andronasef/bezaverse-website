@@ -3,38 +3,47 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout title="Start a conversation">
-  <section class="page-hero section-dark contact-hero">
-    <p class="eyebrow" data-reveal>Get in Touch</p>
-    <h1 data-reveal>Let’s talk about<br /><em>your project.</em></h1>
-    <p class="hero-lede" data-reveal>Tell us what you’re building. We design and build high-quality digital products globally.</p>
-  </section>
-  <section class="section contact-section">
-    <div class="contact-details" data-reveal>
-      <p class="eyebrow">Prefer a direct line?</p>
-      <a class="contact-email" href={`mailto:${site.email}`}>{site.email}</a>
-      <p>{site.location}</p>
-      <p>{site.phone}</p>
+<BaseLayout title="Start a project" description="Tell Bezaverse what you are building and start a conversation about the right digital next step." titleKey="contact.eyebrow" descriptionKey="contact.lede">
+  <section class="contact-hero section-dark">
+    <div class="shell contact-hero-inner">
+      <p class="eyebrow" data-i18n="contact.eyebrow">Start a project</p>
+      <h1>Tell us what you’re <em>building.</em></h1>
+      <p class="hero-lede">A website, a store, a digital product, or something that does not fit neatly into a category yet. Give us the context and we’ll help find the right next step.</p>
     </div>
-    <form class="contact-form" data-contact-form data-reveal>
-      <label>Name<input name="name" required autocomplete="name" placeholder="Your name" /></label>
-      <label>Email<input name="email" type="email" required autocomplete="email" placeholder="you@company.com" /></label>
-      <label>What are you working on?<textarea name="message" required rows="5" placeholder="A little context helps us prepare."></textarea></label>
-      <button class="button" type="submit">Send enquiry <span aria-hidden="true">↗</span></button>
-      <p class="form-status" role="status" aria-live="polite" data-form-status></p>
-    </form>
   </section>
+
+  <section class="contact-section section-paper">
+    <div class="shell contact-grid">
+      <div class="contact-details">
+        <p class="eyebrow" data-i18n="contact.direct.eyebrow">Prefer a direct line?</p>
+        <h2>Let’s start with<br /><em>an honest note.</em></h2>
+        <a class="contact-email" href={`mailto:${site.email}`}>{site.email}</a>
+        <p data-i18n="site.location">{site.location}</p>
+        <p class="contact-details-note" data-i18n="contact.direct.copy">Tell us what is changing, what is getting in the way, and what a useful outcome would look like.</p>
+      </div>
+      <form class="contact-form" data-contact-form data-contact-email={site.email}>
+        <div class="form-row"><label><span data-i18n="contact.name">Name</span><input name="name" required autocomplete="name" placeholder="Your name" data-i18n-placeholder="contact.name.placeholder" /></label><label><span data-i18n="contact.email">Email</span><input name="email" type="email" required autocomplete="email" placeholder="you@company.com" data-i18n-placeholder="contact.email.placeholder" /></label></div>
+        <label><span data-i18n="contact.message">What are you working on?</span><textarea name="message" required rows="7" placeholder="A little context helps us prepare." data-i18n-placeholder="contact.message.placeholder"></textarea></label>
+        <div class="form-footer"><button class="button" type="submit">Send the note <span aria-hidden="true">↗</span></button><p class="form-status" role="status" aria-live="polite" data-form-status></p></div>
+      </form>
+    </div>
+  </section>
+
   <script>
-    const form = document.querySelector('[data-contact-form]');
-    const status = document.querySelector('[data-form-status]');
+    const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+    const status = document.querySelector<HTMLElement>('[data-form-status]');
     form?.addEventListener('submit', (event) => {
       event.preventDefault();
-      if (!(form instanceof HTMLFormElement) || !form.checkValidity()) {
-        status.textContent = 'Please check the highlighted fields and try again.';
+      if (!form.checkValidity()) {
+        form.reportValidity();
         return;
       }
-      status.textContent = 'Thanks. Your note is ready to send, and we’ll be in touch shortly.';
-      form.reset();
+      const formData = new FormData(form);
+      const subject = encodeURIComponent(`Project enquiry from ${formData.get('name') ?? 'a new contact'}`);
+      const body = encodeURIComponent(`Name: ${formData.get('name')}\nEmail: ${formData.get('email')}\n\n${formData.get('message')}`);
+      const email = form.dataset.contactEmail ?? '';
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+      if (status) status.textContent = 'Opening your email app with the project details.';
     });
   </script>
 </BaseLayout>

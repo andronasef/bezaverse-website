@@ -1,29 +1,59 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionIntro from '../components/SectionIntro.astro';
 import { services } from '../data/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
-<BaseLayout title="About the studio">
-  <section class="page-hero section-dark">
-    <p class="eyebrow" data-reveal>About Us</p>
-    <h1 data-reveal>Design that makes<br /><em>business sense.</em></h1>
-    <p class="hero-lede" data-reveal>We design and build digital products that help ambitious businesses sharpen their story, delight their users, and grow with confidence.</p>
-  </section>
-  <section class="section about-intro">
-    <SectionIntro eyebrow="Our approach" title="The best digital products feel <em>simple after the hard work.</em>" copy="We bring strategy, design, and development into the same conversation early. That means fewer handoffs, faster learning, and work your team can actually build on." />
-    <div class="about-image" data-reveal><img src="https://b4550151.smushcdn.com/4550151/wp-content/uploads/2025/06/Container-7.webp" alt="A collaborative product design moment" /></div>
-  </section>
-  <section class="section section-lime values-section">
-    <p class="eyebrow" data-reveal>What you can expect</p>
-    <div class="values-grid">
-      <article data-reveal><span>01</span><h2>Ask better questions.</h2><p>We look for the problem underneath the request, then make the path forward visible.</p></article>
-      <article data-reveal><span>02</span><h2>Keep the work close.</h2><p>Designers and developers work together from the first useful sketch to the last quality check.</p></article>
-      <article data-reveal><span>03</span><h2>Leave things stronger.</h2><p>We build systems, not single-use screens, so your team can keep moving after launch.</p></article>
+<BaseLayout title="The studio" description="Bezaverse is a technical studio designing and building useful digital experiences for growing businesses." titleKey="about.eyebrow" descriptionKey="about.lede">
+  <section class="page-hero page-hero-light studio-hero">
+    <div class="shell studio-hero-inner">
+      <p class="eyebrow" data-i18n="about.eyebrow">The studio</p>
+      <h1 data-i18n-html="about.title">We make complex digital work feel <em>possible.</em></h1>
+      <p class="hero-lede" data-i18n="about.lede">Bezaverse is a technical studio for businesses that need more than a surface-level website. We bring product thinking, design, and development together to make the next step clearer.</p>
     </div>
   </section>
-  <section class="section services-section">
-    <SectionIntro eyebrow="Capabilities" title="The right mix for <em>what’s next.</em>" />
-    <div class="service-list">{services.map((service) => <article class="service-row" data-reveal><span>{service.number}</span><h3>{service.title}</h3><p>{service.text}</p><span class="service-arrow" aria-hidden="true">↗</span></article>)}</div>
+
+  <section class="studio-story section-dark">
+    <div class="shell studio-story-grid">
+      <div><p class="eyebrow" data-i18n="about.believe.eyebrow">What we believe</p><h2 data-i18n-html="about.believe.title">The best work starts with a better <em>question.</em></h2></div>
+      <div class="studio-story-copy"><p data-i18n="about.believe.copy.1">Digital work is not decoration added at the end of a business decision. It is often where people meet the business, decide whether to trust it, and try to get something done.</p><p data-i18n="about.believe.copy.2">That is why we start with the shape of the problem, not a library of screens. We look for the clearest way to help the business and the people using it at the same time.</p></div>
+    </div>
   </section>
+
+  <section class="principles-section section-paper">
+    <div class="shell">
+      <div class="section-heading-row"><div><p class="eyebrow" data-i18n="about.think.eyebrow">How we think</p><h2 data-i18n-html="about.think.title">Useful work.<br /><em>Human details.</em></h2></div><p data-i18n="about.think.copy">We keep the work direct, thoughtful, and connected to the outcome it is meant to create.</p></div>
+      <div class="principles-grid">
+        <article><span>01</span><h3 data-i18n="about.principle.1.title">Clarity before decoration</h3><p data-i18n="about.principle.1.copy">We make the structure and the message useful before we worry about polish.</p></article>
+        <article><span>02</span><h3 data-i18n="about.principle.2.title">Design that can ship</h3><p data-i18n="about.principle.2.copy">Every visual decision should survive contact with content, code, devices, and real users.</p></article>
+        <article><span>03</span><h3 data-i18n="about.principle.3.title">Technology with purpose</h3><p data-i18n="about.principle.3.copy">We choose tools and patterns because they help the experience, not because they are fashionable.</p></article>
+        <article><span>04</span><h3 data-i18n="about.principle.4.title">Room to grow</h3><p data-i18n="about.principle.4.copy">We build foundations that can support the next chapter instead of trapping the business in the first one.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="capabilities-section section-lime">
+    <div class="shell">
+      <div class="section-heading-row"><div><p class="eyebrow" data-i18n="about.capabilities.eyebrow">What we can help with</p><h2 data-i18n-html="about.capabilities.title">One studio.<br /><em>Many useful answers.</em></h2></div><p data-i18n="about.capabilities.copy">Start with the challenge in front of you. We can help define the right shape of the work before deciding how much of it needs to be built.</p></div>
+      <div class="capabilities-grid">
+        {services.map((service) => <article><span>{service.number}</span><h3 data-i18n={`service.${service.number}.title`}>{service.title}</h3><p data-i18n={`service.${service.number}.text`}>{service.text}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="engagement-section section-paper">
+    <div class="shell">
+      <div class="section-heading-row"><div><p class="eyebrow" data-i18n="about.engagement.eyebrow">A flexible engagement</p><h2 data-i18n-html="about.engagement.title">Meet the work<br />where it <em>is.</em></h2></div><p data-i18n="about.engagement.copy">We can join at the beginning, step into a project already in motion, or help improve what is already live.</p></div>
+      <div class="engagement-list">
+        <article><span>01</span><div><h3 data-i18n="about.engagement.1.title">Start from an idea</h3><p data-i18n="about.engagement.1.copy">Turn an opportunity into a clear product or website direction with the right priorities.</p></div></article>
+        <article><span>02</span><div><h3 data-i18n="about.engagement.2.title">Continue existing work</h3><p data-i18n="about.engagement.2.copy">Bring structure and momentum to a project with an existing brand, design, or codebase.</p></div></article>
+        <article><span>03</span><div><h3 data-i18n="about.engagement.3.title">Improve what is live</h3><p data-i18n="about.engagement.3.copy">Find the friction, sharpen the experience, and make the next release more useful.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  {false && <section class="studio-cta section-dark">
+    <div class="shell split-cta"><div><p class="eyebrow">The next useful thing</p><h2>Let’s talk about<br /><em>where you’re going.</em></h2></div><a class="button button-light" href={`${base}contact`}>Start a conversation <span aria-hidden="true">↗</span></a></div>
+  </section>}
 </BaseLayout>

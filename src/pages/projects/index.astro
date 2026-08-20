@@ -1,18 +1,70 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const projects = (await getCollection('projects')).sort((a, b) => b.data.year.localeCompare(a.data.year));
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const assetUrl = (path: string) => path.startsWith('/') ? `${base}${path.slice(1)}` : path;
+const projects = (await getCollection('projects')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const categories = ['All', ...new Set(projects.map((project) => project.data.category))];
 ---
 
-<BaseLayout title="Selected projects">
-  <section class="page-hero page-hero-light">
-    <p class="eyebrow" data-reveal>Our Work</p>
-    <h1 data-reveal>What we’re most<br /><em>proud of.</em></h1>
-    <p class="hero-lede" data-reveal>No need to juggle multiple agencies. Our global team handles websites, mobile apps, branding, SaaS products, and web development under one roof.</p>
+<BaseLayout title="Selected work" description="A selection of websites, ecommerce experiences, and digital platforms built by Bezaverse." titleKey="projects.eyebrow" descriptionKey="projects.lede">
+  <section class="page-hero page-hero-dark">
+    <div class="shell">
+      <p class="eyebrow" data-i18n="projects.eyebrow">Selected work</p>
+      <h1 data-i18n-html="projects.title">Useful digital work<br /><em>for real businesses.</em></h1>
+      <p class="hero-lede" data-i18n="projects.lede">A selection of websites, online stores, and digital experiences built to make a business clearer, more useful, and easier to choose.</p>
+    </div>
   </section>
-  <section class="section projects-page-section">
-    <div class="projects-grid projects-grid-page">{projects.map((project, index) => <ProjectCard index={index} slug={project.slug} {...project.data} />)}</div>
+
+  <section class="projects-index section-paper">
+    <div class="shell">
+      <div class="section-heading-row projects-index-heading">
+        <div><p class="eyebrow" data-i18n="projects.explore.eyebrow">Explore the work</p><h2 data-i18n-html="projects.explore.title">Different contexts.<br /><em>Same care.</em></h2></div>
+        <p data-i18n="projects.explore.copy">Every project starts with its own business, audience, and constraints. The common thread is a clear experience that helps people move.</p>
+      </div>
+      <div class="project-filters" role="group" aria-label="Filter projects" data-i18n-aria-label="projects.filter.label">
+        {categories.map((category, index) => <button type="button" class:list={{ 'is-active': index === 0 }} data-filter={category} data-i18n={index === 0 ? 'projects.filter.all' : category === 'Corporate websites' ? 'category.corporate' : category === 'Non-profit' ? 'category.nonprofit' : category === 'Ecommerce' ? 'category.ecommerce' : 'category.websites'}>{category}</button>)}
+      </div>
+      <div class="projects-index-grid">
+        {projects.map((project, index) => <a class="project-tile" href={`${base}projects/${project.slug}`} data-category={project.data.category}>
+          <div class="project-tile-image"><img src={assetUrl(project.data.image)} alt={`${project.data.title} project`} loading={index < 4 ? 'eager' : 'lazy'} /><span aria-hidden="true">↗</span></div>
+          <div class="project-tile-meta"><div><p>{project.data.category} · {project.data.platform}</p><h3>{project.data.title}</h3></div><span>View project</span></div>
+        </a>)}
+      </div>
+      <p class="empty-state" hidden data-i18n="projects.empty">No projects match that filter yet.</p>
+    </div>
   </section>
+
+  {false && <section class="section-dark projects-index-cta">
+    <div class="shell split-cta">
+      <div><p class="eyebrow">Your project could be next</p><h2>Let’s build something<br /><em>that earns attention.</em></h2></div>
+      <a class="button button-light" href={`${base}contact`}>Start a conversation <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>}
+
+  <script>
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    const cards = document.querySelectorAll<HTMLElement>('[data-category]');
+    const emptyState = document.querySelector<HTMLElement>('.empty-state');
+    let filterHideTimer: number | undefined;
+    const applyFilter = (filter: string) => {
+      if (filterHideTimer) window.clearTimeout(filterHideTimer);
+      filterButtons.forEach((item) => item.classList.toggle('is-active', item.dataset.filter === filter));
+      let visible = 0;
+      cards.forEach((card) => {
+        const show = filter === 'All' || card.dataset.category === filter;
+        card.classList.toggle('is-filtering-out', !show);
+        if (show) card.hidden = false;
+        if (show) visible += 1;
+      });
+      if (emptyState) emptyState.hidden = visible > 0;
+      filterHideTimer = window.setTimeout(() => {
+        cards.forEach((card) => {
+          if (card.classList.contains('is-filtering-out')) card.hidden = true;
+        });
+      }, 180);
+    };
+    filterButtons.forEach((button) => button.addEventListener('click', () => applyFilter(button.dataset.filter ?? 'All')));
+  </script>
 </BaseLayout>

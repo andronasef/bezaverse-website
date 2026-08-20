@@ -1,28 +1,88 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { site } from '../../data/site';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
-  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
 }
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const assetUrl = (path: string) => path.startsWith('/') ? `${base}${path.slice(1)}` : path;
 ---
 
-<BaseLayout title={project.data.title} description={project.data.summary}>
+<BaseLayout title={project.data.title} description={project.data.summary} titleKey={`project.${project.slug}.title`} descriptionKey={`project.${project.slug}.summary`}>
   <article class="project-detail">
-    <header class="project-detail-header section-dark">
-      <p class="eyebrow" data-reveal>{project.data.category} · {project.data.year}</p>
-      <h1 data-reveal>{project.data.title}<br /><em>{project.data.client}</em></h1>
-      <p class="hero-lede" data-reveal>{project.data.summary}</p>
+    <header class="project-detail-hero section-dark">
+      <div class="shell project-detail-hero-inner">
+        <a class="back-link" href={`${base}projects`}>← All selected work</a>
+        <div class="project-detail-heading">
+          <p class="eyebrow">{project.data.category} · {project.data.platform}</p>
+          <h1 data-i18n={`project.${project.slug}.title`}>{project.data.title}</h1>
+          <p class="hero-lede" data-i18n={`project.${project.slug}.summary`}>{project.data.summary}</p>
+        </div>
+        <div class="project-detail-facts">
+          <span data-i18n="project.focus">Project focus</span>
+          <strong data-i18n={`project.${project.slug}.category`}>{project.data.category}</strong>
+          <span data-i18n="project.platform">Platform</span>
+          <strong data-i18n={`project.${project.slug}.platform`}>{project.data.platform}</strong>
+        </div>
+      </div>
     </header>
-    <div class="project-detail-image" data-reveal><img src={project.data.image} alt={`${project.data.title} project`} /></div>
-    <div class="project-detail-body">
-      <div class="project-detail-aside"><span>Client</span><strong>{project.data.client}</strong><span>Studio</span><strong>{site.name}</strong></div>
-      <div class="prose"><Content /></div>
+
+    <div class="shell project-detail-cover">
+      <img src={assetUrl(project.data.image)} alt={`${project.data.title} project cover`} />
     </div>
+
+    <div class="shell project-detail-layout">
+      <aside class="project-detail-aside">
+        <span data-i18n="project.worked">What we worked on</span>
+        <ul>
+          {project.data.features.slice(0, 4).map((feature, index) => <li data-i18n={`project.${project.slug}.features.${index}`}>{feature}</li>)}
+        </ul>
+      </aside>
+      <div class="project-detail-content">
+        <section class="project-copy-block">
+          <p class="eyebrow" data-i18n="project.brief">The brief</p>
+          <h2 data-i18n={`project.${project.slug}.objective`}>{project.data.objective}</h2>
+        </section>
+        <div class="prose" data-i18n-html={`project.${project.slug}.content`}><Content /></div>
+        <section class="project-detail-list-grid">
+          <div>
+            <p class="eyebrow" data-i18n="project.features">Key features</p>
+            <ul class="check-list">{project.data.features.map((feature, index) => <li data-i18n={`project.${project.slug}.features.${index}`}>{feature}</li>)}</ul>
+          </div>
+          <div>
+            <p class="eyebrow" data-i18n="project.enables">What it enables</p>
+            <ul class="check-list">{project.data.benefits.map((benefit, index) => <li data-i18n={`project.${project.slug}.benefits.${index}`}>{benefit}</li>)}</ul>
+          </div>
+        </section>
+        {project.data.note && <p class="project-note">{project.data.note}</p>}
+      </div>
+    </div>
+
+    {project.data.gallery.length > 0 && <section class="project-gallery section-paper">
+      <div class="shell">
+        <div class="section-heading-row">
+          <div><p class="eyebrow" data-i18n="project.inside">Inside the work</p><h2 data-i18n="project.look">A closer look.</h2></div>
+          <p data-i18n="project.gallery.copy">Selected screens from the project, kept close to the decisions they support.</p>
+        </div>
+        <div class="project-gallery-grid">
+          {project.data.gallery.map((image, index) => <figure><img src={assetUrl(image)} alt={`${project.data.title} screen ${index + 1}`} loading="lazy" /></figure>)}
+        </div>
+      </div>
+    </section>}
+
+    {false && <section class="project-next section-lime">
+      <div class="shell project-next-inner">
+        <div><p class="eyebrow">Have a project in mind?</p><h2>Let’s shape the<br /><em>right next step.</em></h2></div>
+        <a class="button" href={`${base}contact`}>Start a conversation <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>}
   </article>
 </BaseLayout>

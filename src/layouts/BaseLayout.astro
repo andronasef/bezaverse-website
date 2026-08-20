@@ -3,56 +3,201 @@ import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { site } from '../data/site';
+import { translations } from '../data/i18n';
 
 interface Props {
   title?: string;
   description?: string;
   darkFooter?: boolean;
+  titleKey?: string;
+  descriptionKey?: string;
 }
-const { title = site.name, description = site.description } = Astro.props;
+const { title = site.name, description = site.description, titleKey, descriptionKey } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+type Locale = 'en' | 'ar';
+const routePath = Astro.url.pathname.replace(base === '/' ? /^\// : new RegExp(`^${base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`), '/');
+const routeLocale = routePath.match(/^\/(en|ar)(?=\/|$)/)?.[1] as Locale | undefined;
+const initialLocale: Locale = routeLocale ?? 'en';
+const initialDirection = initialLocale === 'ar' ? 'rtl' : 'ltr';
+const fontFaceCss = `
+@font-face { font-family: 'Manrope'; src: url('${base}fonts/manrope-400.ttf') format('truetype'); font-display: swap; font-style: normal; font-weight: 400; }
+@font-face { font-family: 'Manrope'; src: url('${base}fonts/manrope-700.ttf') format('truetype'); font-display: swap; font-style: normal; font-weight: 700; }
+@font-face { font-family: 'Cairo'; src: url('${base}fonts/cairo-700.ttf') format('truetype'); font-display: swap; font-style: normal; font-weight: 700; }
+@font-face { font-family: 'Noto Sans Arabic'; src: url('${base}fonts/noto-sans-arabic-400.ttf') format('truetype'); font-display: swap; font-style: normal; font-weight: 400; }
+@font-face { font-family: 'Noto Sans Arabic'; src: url('${base}fonts/noto-sans-arabic-700.ttf') format('truetype'); font-display: swap; font-style: normal; font-weight: 700; }
+`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={initialLocale} dir={initialDirection} data-locale={initialLocale} data-locale-pending={routeLocale ? 'true' : undefined} data-base={base} data-title-key={titleKey} data-description-key={descriptionKey}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
-    <link rel="icon" href="data:," />
+    <meta name="description" content={description} data-i18n={descriptionKey} />
+    <link rel="icon" type="image/svg+xml" href={`${base}assets/brand/bezaverse-letter.svg`} />
+    <link rel="preload" href={`${base}fonts/manrope-400.ttf`} as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href={`${base}fonts/manrope-700.ttf`} as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href={`${base}fonts/cairo-700.ttf`} as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href={`${base}fonts/noto-sans-arabic-400.ttf`} as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href={`${base}fonts/noto-sans-arabic-700.ttf`} as="font" type="font/ttf" crossorigin />
+    <style is:inline set:html={fontFaceCss}></style>
+    <style is:inline>html[data-locale-pending] body { visibility: hidden; }</style>
     <title>{title} · {site.name}</title>
   </head>
   <body>
     <SiteHeader />
     <main><slot /></main>
     <SiteFooter />
+    <script is:inline type="application/json" id="i18n-data" set:html={JSON.stringify(translations)}></script>
+    <script>
+      type Locale = 'en' | 'ar';
+      const messages = JSON.parse(document.querySelector('#i18n-data')?.textContent ?? '{}') as Record<Locale, Record<string, string>>;
+      const titleKeyValue = document.documentElement.dataset.titleKey;
+      const descriptionKeyValue = document.documentElement.dataset.descriptionKey;
+      const pathLocale = window.location.pathname.match(/^\/(en|ar)(?=\/|$)/)?.[1];
+      const browserLocale = window.navigator.language.toLowerCase().startsWith('ar') ? 'ar' : 'en';
+      const initialLocale: Locale = pathLocale === 'ar' || pathLocale === 'en' ? pathLocale : browserLocale;
+
+      const message = (locale: Locale, key: string | undefined, fallback?: string) => key ? messages[locale]?.[key] ?? messages.en?.[key] ?? fallback ?? key : undefined;
+      const syncInternalLinks = (locale: Locale) => {
+        const basePath = document.documentElement.dataset.base?.replace(/\/$/, '') ?? '';
+        document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
+          const href = link.getAttribute('href');
+          if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('http')) return;
+          const url = new URL(href, window.location.href);
+          const cleanPath = url.pathname.replace(new RegExp(`^${basePath}`), '').replace(/^\/(en|ar)(?=\/|$)/, '') || '/';
+          const localizedPath = `${basePath}/${locale}${cleanPath === '/' ? '' : cleanPath}`;
+          url.searchParams.delete('lang');
+          link.setAttribute('href', `${localizedPath}${url.search}${url.hash}`);
+        });
+      };
+
+      const applyLocale = (locale: Locale) => {
+        document.documentElement.lang = locale;
+        document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.dataset.locale = locale;
+        document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((element) => {
+          const fallback = element.dataset.i18nDefault ?? (element.dataset.i18nDefault = element.textContent ?? '');
+          const value = message(locale, element.dataset.i18n, fallback);
+          if (value !== undefined) element.textContent = value;
+        });
+        document.querySelectorAll<HTMLElement>('[data-i18n-html]').forEach((element) => {
+          const fallback = element.dataset.i18nDefault ?? (element.dataset.i18nDefault = element.innerHTML);
+          const value = message(locale, element.dataset.i18nHtml, fallback);
+          if (value !== undefined) element.innerHTML = value;
+        });
+        document.querySelectorAll<HTMLElement>('[data-i18n-placeholder]').forEach((element) => {
+          const value = message(locale, element.dataset.i18nPlaceholder);
+          if (value !== undefined) element.setAttribute('placeholder', value);
+        });
+        document.querySelectorAll<HTMLElement>('[data-i18n-aria-label]').forEach((element) => {
+          const value = message(locale, element.dataset.i18nAriaLabel);
+          if (value !== undefined) element.setAttribute('aria-label', value);
+        });
+        document.querySelectorAll<HTMLElement>('[data-i18n-alt]').forEach((element) => {
+          const value = message(locale, element.dataset.i18nAlt);
+          if (value !== undefined) element.setAttribute('alt', value);
+        });
+        document.querySelectorAll<HTMLButtonElement>('[data-locale-switch]').forEach((button) => {
+          const nextLocale = locale === 'en' ? 'ar' : 'en';
+          button.classList.remove('is-active');
+          button.setAttribute('aria-pressed', 'false');
+          button.dataset.localeSwitch = nextLocale;
+          button.setAttribute('aria-label', nextLocale === 'ar' ? messages.ar['language.arabic'] : messages.en['language.english']);
+          const name = button.querySelector<HTMLElement>('.locale-switcher-name');
+          const flag = button.querySelector<HTMLElement>('.locale-switcher-flag');
+          if (name) name.textContent = nextLocale === 'ar' ? messages.ar['language.arabic'] : messages.en['language.english'];
+          const flagImage = flag?.querySelector<HTMLImageElement>('img');
+          if (flagImage) flagImage.src = flagImage.src.replace(/(us|eg)\.svg$/, `${nextLocale === 'en' ? 'us' : 'eg'}.svg`);
+        });
+        document.querySelectorAll<HTMLElement>('.nav-cta').forEach((link) => {
+          const textNode = link.firstChild;
+          const value = message(locale, 'nav.start', 'Start a project');
+          if (textNode?.nodeType === Node.TEXT_NODE && value) textNode.textContent = `${value} `;
+        });
+        const footerEyebrow = document.querySelector('.footer-cta .eyebrow');
+        if (footerEyebrow) footerEyebrow.textContent = message(locale, 'footer.eyebrow', footerEyebrow.textContent ?? '') ?? '';
+        const footerTitle = document.querySelector('.footer-cta h2');
+        if (footerTitle) footerTitle.innerHTML = message(locale, 'footer.title', footerTitle.innerHTML) ?? '';
+        const specialHtml = [
+          ['.contact-hero h1', 'contact.title'],
+          ['.contact-details h2', 'contact.direct.title'],
+        ];
+        specialHtml.forEach(([selector, key]) => {
+          const element = document.querySelector(selector);
+          if (element) element.innerHTML = message(locale, key, element.innerHTML) ?? '';
+        });
+        const specialText = [
+          ['.contact-hero .hero-lede', 'contact.lede'],
+          ['.back-link', 'project.back'],
+          ['.services-showcase-copy .button', 'home.services.cta'],
+          ['.featured-work .text-link', 'home.work.cta'],
+          ['.contact-form .button', 'contact.submit'],
+          ['.footer-cta .button', 'footer.cta'],
+        ];
+        specialText.forEach(([selector, key]) => {
+          const element = document.querySelector(selector);
+          const value = message(locale, key, element?.textContent ?? '');
+          if (element?.firstChild?.nodeType === Node.TEXT_NODE && value) element.firstChild.textContent = `${value} `;
+          else if (element && value) element.textContent = value;
+        });
+        const footerBottom = document.querySelectorAll<HTMLElement>('.footer-bottom > span');
+        if (footerBottom[0]) footerBottom[0].textContent = message(locale, 'site.location', footerBottom[0].textContent ?? '') ?? '';
+        if (footerBottom[1]) footerBottom[1].innerHTML = `© ${new Date().getFullYear()} Bezaverse. ${message(locale, 'footer.rights', 'All rights reserved.')}`;
+        if (footerBottom[2]) footerBottom[2].textContent = message(locale, 'footer.tagline', footerBottom[2].textContent ?? '') ?? '';
+        document.querySelectorAll<HTMLElement>('.project-tile, .featured-card').forEach((card) => {
+          const href = card.getAttribute('href') ?? '';
+          const slug = href.match(/projects\/([^/?#]+)/)?.[1];
+          if (!slug) return;
+          const title = card.querySelector<HTMLElement>('h3');
+          const meta = card.querySelector<HTMLElement>('.project-tile-meta p') ?? Array.from(card.children).find((child) => child.tagName === 'P') as HTMLElement | undefined;
+          const titleValue = message(locale, `project.${slug}.title`, title?.textContent ?? '');
+          if (title && titleValue) title.textContent = titleValue;
+          const category = message(locale, `project.${slug}.category`, '');
+          const platform = message(locale, `project.${slug}.platform`, '');
+          if (meta && category && platform) meta.textContent = `${category} · ${platform}`;
+        });
+        document.querySelectorAll<HTMLElement>('.project-tile-meta > span').forEach((element) => {
+          element.textContent = message(locale, 'projects.view', element.textContent ?? '') ?? '';
+        });
+        const detailSlug = window.location.pathname.match(/projects\/([^/]+)/)?.[1];
+        if (detailSlug) {
+          const detailMeta = document.querySelector<HTMLElement>('.project-detail-heading .eyebrow');
+          const detailCategory = message(locale, `project.${detailSlug}.category`, '');
+          const detailPlatform = message(locale, `project.${detailSlug}.platform`, '');
+          if (detailMeta && detailCategory && detailPlatform) detailMeta.textContent = `${detailCategory} · ${detailPlatform}`;
+        }
+        const localizedTitle = message(locale, titleKeyValue);
+        if (localizedTitle) document.title = `${localizedTitle} · Bezaverse`;
+        const localizedDescription = message(locale, descriptionKeyValue);
+        if (localizedDescription) document.querySelector('meta[name="description"]')?.setAttribute('content', localizedDescription);
+        syncInternalLinks(locale);
+        document.dispatchEvent(new CustomEvent('localechange', { detail: { locale } }));
+      };
+
+      document.querySelectorAll<HTMLButtonElement>('[data-locale-switch]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const locale = button.dataset.localeSwitch as Locale;
+          const url = new URL(window.location.href);
+          const basePath = document.documentElement.dataset.base?.replace(/\/$/, '') ?? '';
+          const cleanPath = url.pathname.replace(new RegExp(`^${basePath}`), '').replace(/^\/(en|ar)(?=\/|$)/, '') || '/';
+          const localizedPath = `${basePath}/${locale}${cleanPath === '/' ? '' : cleanPath}`;
+          url.searchParams.delete('lang');
+          window.location.href = `${localizedPath}${url.search}${url.hash}`;
+        });
+      });
+      try {
+        applyLocale(initialLocale);
+      } finally {
+        document.documentElement.removeAttribute('data-locale-pending');
+      }
+    </script>
     <script>
       import { gsap } from 'gsap';
-      import { ScrollTrigger } from 'gsap/ScrollTrigger';
-      gsap.registerPlugin(ScrollTrigger);
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const reveals = document.querySelectorAll<HTMLElement>('[data-reveal]');
       if (!reduced) {
-        reveals.forEach((element) => {
-          ScrollTrigger.create({
-            trigger: element,
-            start: 'top 86%',
-            once: true,
-            onEnter: () => gsap.fromTo(element, { y: 22, opacity: 0.45 }, {
-              y: 0,
-              opacity: 1,
-              duration: 0.6,
-              ease: 'power3.out',
-              clearProps: 'transform',
-            }),
-          });
-        });
-        gsap.to('.hero-sphere', { scale: 1.09, duration: 3.4, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-        document.querySelectorAll('.project-image-wrap img').forEach((image) => {
-          image.addEventListener('mouseenter', () => gsap.to(image, { scale: 1.04, duration: 0.5, ease: 'power2.out' }));
-          image.addEventListener('mouseleave', () => gsap.to(image, { scale: 1, duration: 0.5, ease: 'power2.out' }));
-        });
-      } else {
-        gsap.set(reveals, { opacity: 1, y: 0 });
+        const heroSphere = document.querySelector<HTMLElement>('.hero-sphere');
+        if (heroSphere) gsap.to(heroSphere, { scale: 1.09, duration: 3.4, repeat: -1, yoyo: true, ease: 'sine.inOut' });
       }
     </script>
   </body>

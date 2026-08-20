@@ -11,9 +11,9 @@ const { title, category, year, image, slug, index } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
-<a class="project-card" href={`${base}projects/${slug}`} data-reveal>
+<a class="project-card" href={`${base}projects/${slug}`}>
   <div class="project-image-wrap">
-    <img src={image} alt={`${title} project preview`} loading={index > 1 ? 'lazy' : 'eager'} />
+    <img src={image} alt={title} loading={index > 1 ? 'lazy' : 'eager'} />
     <span class="project-arrow" aria-hidden="true">↗</span>
   </div>
   <div class="project-meta">

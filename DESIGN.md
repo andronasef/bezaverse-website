@@ -24,7 +24,8 @@ Use a 4pt base spacing rhythm with generous section breaks. The desktop grid is 
 
 ## Components
 
-- `SiteHeader`: sticky, compact, keyboard-accessible, with a mobile menu.
+- `SiteHeader`: sticky, compact, keyboard-accessible, with a mobile menu. Its mobile dock uses Phosphor regular icons for idle items and the matching fill icon for the active route or open More menu.
+- `Hero`: centered landing-page entry point with optional eyebrow and CTA, a grid-led atmosphere, violet glow, and reduced-motion-safe fade-up entrance.
 - `ProjectCard`: image-led project preview with category and arrow affordance.
 - `SectionIntro`: eyebrow, heading, and supporting copy pattern.
 - `FaqList`: native details/summary disclosure for accessible progressive content.
@@ -32,4 +33,4 @@ Use a 4pt base spacing rhythm with generous section breaks. The desktop grid is 
 
 ## Motion
 
-GSAP reveals `[data-reveal]` elements on entry and uses a subtle image lift on project hover. All motion is disabled when `prefers-reduced-motion: reduce` matches.
+Use targeted GSAP interactions for image hovers and ambient hero motion. Avoid a global scroll-reveal system so content is present immediately and each future interaction can earn its own motion. All non-essential motion is disabled when `prefers-reduced-motion: reduce` matches.

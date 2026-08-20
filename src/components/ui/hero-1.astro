@@ -1,0 +1,54 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  eyebrowKey?: string;
+  titleKey?: string;
+  subtitleKey?: string;
+  ctaLabelKey?: string;
+}
+
+const {
+  eyebrow = 'Innovate Without Limits',
+  title,
+  subtitle,
+  ctaLabel = 'Explore Now',
+  ctaHref = '#',
+  eyebrowKey,
+  titleKey,
+  subtitleKey,
+  ctaLabelKey,
+} = Astro.props;
+---
+
+<section id="hero" class="hero-1 home-hero section-dark" aria-labelledby="hero-title">
+  <div class="hero-1-grid" aria-hidden="true"></div>
+  <div class="hero-1-glow" aria-hidden="true"></div>
+
+  <div class="hero-1-content">
+    {eyebrow && (
+      <a class="hero-1-eyebrow" href="#services">
+        <span data-i18n={eyebrowKey}>{eyebrow}</span>
+        <i class="ph ph-caret-right" aria-hidden="true"></i>
+      </a>
+    )}
+
+    <h1 id="hero-title" class="hero-1-title" data-i18n={titleKey}>{title}</h1>
+
+    <p class="hero-1-subtitle" data-i18n={subtitleKey}>{subtitle}</p>
+
+    {ctaLabel && (
+      <div class="hero-1-actions">
+        <a class="button button-light hero-1-cta" href={ctaHref}>
+          <span data-i18n={ctaLabelKey}>{ctaLabel}</span>
+          <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    )}
+  </div>
+
+  <div class="hero-1-bottom-fade" aria-hidden="true"></div>
+</section>
