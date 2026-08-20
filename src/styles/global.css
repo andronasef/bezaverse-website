@@ -980,6 +980,8 @@ html[dir="rtl"] .services-track {
   margin-bottom: 4.5rem;
 }
 .featured-work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 3.5rem 2rem;
 }
 .featured-card {
@@ -2013,7 +2015,7 @@ html[dir="rtl"] .services-track {
   .principles-grid,
   .capabilities-grid,
   .process-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 2.4rem 0.7rem;
   }
   .featured-card-offset,
