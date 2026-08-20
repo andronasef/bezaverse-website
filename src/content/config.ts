@@ -4,12 +4,15 @@ const projects = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    client: z.string(),
     category: z.string(),
-    year: z.coerce.string(),
-    image: z.string().url(),
-    accent: z.string().default('lime'),
+    platform: z.string(),
     summary: z.string(),
+    objective: z.string(),
+    image: z.string(),
+    gallery: z.array(z.string()).default([]),
+    features: z.array(z.string()),
+    benefits: z.array(z.string()),
+    note: z.string().optional(),
   }),
 });
 

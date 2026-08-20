@@ -1,21 +1,60 @@
 export const site = {
   name: 'Bezaverse',
   shortName: 'B',
-  description: 'Digital systems, product design, and web development for teams building what is next.',
+  description: 'A technical studio designing and building websites, online stores, and digital products that help businesses move forward.',
   email: 'hello@bezaverse.com',
-  phone: '+20 10 0000 0000',
-  location: 'Cairo, Egypt - Working globally',
+  location: 'Cairo, Egypt · Working remotely',
 };
 
 export const services = [
-  { number: '01', title: 'Brand systems', text: 'Positioning, identity, and flexible visual foundations that make a new product feel inevitable.' },
-  { number: '02', title: 'UI/UX design', text: 'Research-backed journeys, wireframes, prototypes, and polished interfaces that remove friction.' },
-  { number: '03', title: 'Web development', text: 'Fast, accessible websites built with the same care as the experience they introduce.' },
+  {
+    number: '01',
+    title: 'Websites & platforms',
+    text: 'Clear, responsive websites and digital platforms that explain your value and make the next step easy.',
+    image: '/assets/services/web-development.jpg',
+    tags: ['Responsive websites', 'Web platforms'],
+  },
+  {
+    number: '02',
+    title: 'Ecommerce',
+    text: 'Online stores with thoughtful product journeys, focused storytelling, and a smoother path to purchase.',
+    image: '/assets/services/ecommerce.jpg',
+    tags: ['Online stores', 'Conversion journeys'],
+  },
+  {
+    number: '03',
+    title: 'Digital products',
+    text: 'Useful experiences for SaaS, mobile, and internal products, from the first flow to the shipped interface.',
+    image: '/assets/services/digital-products.jpg',
+    tags: ['SaaS products', 'Mobile experiences'],
+  },
+  {
+    number: '04',
+    title: 'UI/UX & product design',
+    text: 'A joined-up design process that turns complex ideas into interfaces people can understand and use.',
+    image: '/assets/services/ui-ux-design.jpg',
+    tags: ['UX strategy', 'Interface design'],
+  },
+  {
+    number: '05',
+    title: 'Brand systems',
+    text: 'Flexible visual foundations that help a business show up with clarity across every digital touchpoint.',
+    image: '/assets/services/brand-systems.jpg',
+    tags: ['Visual direction', 'Digital identity'],
+  },
+  {
+    number: '06',
+    title: 'Ongoing improvement',
+    text: 'Practical support after launch to keep your site or product useful, fast, and ready for what comes next.',
+    image: '/assets/services/ongoing-improvement.jpg',
+    tags: ['Iteration', 'Support & growth'],
+  },
 ];
 
 export const faqs = [
-  { question: 'What kinds of products do you design?', answer: 'We design websites, SaaS platforms, mobile products, and the systems that keep those experiences coherent as they grow.' },
-  { question: 'How do you work with a new team?', answer: 'We start with a focused discovery sprint, align on the highest-value opportunity, then move through design and development in visible, testable steps.' },
-  { question: 'Can you work with an existing brand?', answer: 'Yes. We can extend an existing identity, refine the system, or create a new direction that is ready for the product and the people using it.' },
-  { question: 'What does a typical engagement look like?', answer: 'Most projects run for eight to twelve weeks, depending on scope. We keep milestones clear and leave your team with useful, maintainable work.' },
+  { question: 'What can Bezaverse help us build?', answer: 'We design and build company websites, online stores, digital platforms, mobile experiences, and the systems that support them.' },
+  { question: 'Can you join an existing project?', answer: 'Yes. We can take a project from an early idea, continue an existing design, or improve a website or product that is already live.' },
+  { question: 'Do you handle design and development?', answer: 'Yes. We can support the full journey from structure and user experience to visual design, development, testing, and launch.' },
+  { question: 'How do you start a project?', answer: 'We begin with a focused conversation about your business, users, goals, and constraints. Then we shape the clearest next step before committing to the work.' },
+  { question: 'Can you work with an existing brand?', answer: 'Absolutely. We can work within your current identity, refine its digital expression, or create a more flexible system for the next stage of the business.' },
 ];
