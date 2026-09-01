@@ -54,9 +54,18 @@ const fontFaceCss = `
       const messages = JSON.parse(document.querySelector('#i18n-data')?.textContent ?? '{}') as Record<Locale, Record<string, string>>;
       const titleKeyValue = document.documentElement.dataset.titleKey;
       const descriptionKeyValue = document.documentElement.dataset.descriptionKey;
-      const pathLocale = window.location.pathname.match(/^\/(en|ar)(?=\/|$)/)?.[1];
+      const basePath = document.documentElement.dataset.base?.replace(/\/$/, '') ?? '';
+      const pathWithoutBase = (basePath && window.location.pathname.startsWith(basePath)
+        ? window.location.pathname.slice(basePath.length)
+        : window.location.pathname) || '/';
+      const pathLocale = pathWithoutBase.match(/^\/(en|ar)(?=\/|$)/)?.[1];
       const browserLocale = window.navigator.language.toLowerCase().startsWith('ar') ? 'ar' : 'en';
-      const initialLocale: Locale = pathLocale === 'ar' || pathLocale === 'en' ? pathLocale : browserLocale;
+      const renderedLocale = document.documentElement.dataset.locale as Locale | undefined;
+      const initialLocale: Locale = pathLocale === 'ar' || pathLocale === 'en'
+        ? pathLocale
+        : renderedLocale === 'ar'
+          ? 'ar'
+          : browserLocale;
 
       const message = (locale: Locale, key: string | undefined, fallback?: string) => key ? messages[locale]?.[key] ?? messages.en?.[key] ?? fallback ?? key : undefined;
       const syncInternalLinks = (locale: Locale) => {
