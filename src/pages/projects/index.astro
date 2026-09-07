@@ -24,7 +24,7 @@ const categories = ['All', ...new Set(projects.map((project) => project.data.cat
         <p data-i18n="projects.explore.copy">Every project starts with its own business, audience, and constraints. The common thread is a clear experience that helps people move.</p>
       </div>
       <div class="project-filters" role="group" aria-label="Filter projects" data-i18n-aria-label="projects.filter.label">
-        {categories.map((category, index) => <button type="button" class:list={{ 'is-active': index === 0 }} data-filter={category} data-i18n={index === 0 ? 'projects.filter.all' : category === 'Corporate websites' ? 'category.corporate' : category === 'Non-profit' ? 'category.nonprofit' : category === 'Ecommerce' ? 'category.ecommerce' : 'category.websites'}>{category}</button>)}
+        {categories.map((category, index) => <button type="button" class:list={{ 'is-active': index === 0 }} data-filter={category} data-i18n={index === 0 ? 'projects.filter.all' : category === 'Corporate websites' ? 'category.corporate' : category === 'Non-profit' ? 'category.nonprofit' : category === 'Ecommerce' ? 'category.ecommerce' : category === 'Digital platforms' ? 'category.platforms' : 'category.websites'}>{category}</button>)}
       </div>
       <div class="projects-index-grid">
         {projects.map((project, index) => <a class="project-tile" href={`${base}projects/${project.slug}`} data-category={project.data.category}>

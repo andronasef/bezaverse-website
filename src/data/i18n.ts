@@ -133,6 +133,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     'project.gallery.copy': 'Selected screens from the project, kept close to the decisions they support.',
     'project.screen': 'screen',
     'category.websites': 'Websites',
+    'category.platforms': 'Digital platforms',
     'category.ecommerce': 'Ecommerce',
     'category.corporate': 'Corporate websites',
     'category.nonprofit': 'Non-profit',
@@ -271,11 +272,64 @@ export const translations: Record<Locale, Record<string, string>> = {
     'project.gallery.copy': 'شاشات مختارة من المشروع، مرتبطة بالقرارات التي تدعمها.',
     'project.screen': 'شاشة',
     'category.websites': 'مواقع',
+    'category.platforms': 'منصات رقمية',
     'category.ecommerce': 'متاجر إلكترونية',
     'category.corporate': 'مواقع شركات',
     'category.nonprofit': 'منظمات غير ربحية',
     'platform.wordpress': 'WordPress',
     'platform.salla': 'سلة',
+  },
+};
+
+const tungstenProjectTranslation: Record<Locale, Record<string, string | string[]>> = {
+    en: { title: 'Tungsten Media CMS', category: 'Digital platforms', platform: 'Custom CMS' },
+    ar: {
+      title: 'نظام إدارة محتوى Tungsten Media',
+      category: 'منصات رقمية',
+      platform: 'نظام إدارة محتوى مخصص',
+      summary: 'منصة ثنائية اللغة لإدارة المحتوى تمنح فريق Tungsten Media طريقة واضحة ومنضبطة لإنشاء الصفحات وإدارة المحتوى وتشغيل خدماتهم الرقمية.',
+      objective: 'إنشاء نظام إدارة محتوى مرن يجمع الصفحات والمحتوى والمستخدمين والأدوار والخدمات والحجوزات وإعدادات الدفع في لوحة تحكم واحدة سهلة الاستخدام لفريق Tungsten Media.',
+      features: [
+        'لوحة إدارة ثنائية اللغة بالعربية والإنجليزية تدعم الاتجاه من اليمين إلى اليسار.',
+        'أداة لإنشاء الصفحات وتنظيم أقسامها مباشرة من لوحة التحكم.',
+        'إدارة للنصوص والصور والفيديو وأزرار الدعوة إلى الإجراء وأقسام الصفحات القابلة لإعادة الاستخدام.',
+        'إدارة الأدوار والصلاحيات للمسؤولين والمستخدمين ومنشئي المحتوى.',
+        'أقسام لإدارة الخدمات والفئات ووسائل التواصل والحجوزات وبوابات الدفع.',
+        'موقع عام متجاوب يرتبط بالمحتوى المُدار من خلال المنصة.',
+      ],
+      benefits: [
+        'يمنح الفريق استقلالية في تحديث الموقع دون الاعتماد على مطور.',
+        'ينظم المحتوى العربي والإنجليزي ضمن سير عمل واحد.',
+        'يقلل التعقيد التشغيلي عبر صلاحيات وأدوات محتوى واضحة.',
+        'يوفر أساساً قابلاً للتوسع للخدمات والصفحات ورحلات العملاء الجديدة.',
+      ],
+      content: '<h2>عن المشروع</h2><p>احتاجت Tungsten Media إلى أكثر من موقع تعريفي؛ احتاج الفريق إلى نظام عملي يملك من خلاله المحتوى ويُديره باستمرار.</p><p>صممنا وطورنا منصة مخصصة لإدارة المحتوى إلى جانب الموقع العام. تجمع المنصة إدارة الصفحات والأقسام المرئية ومحتوى الخدمات والمستخدمين والأدوار والحجوزات والمواد الثابتة وروابط التواصل وبوابات الدفع في مكان واحد.</p><h2>منهج العمل</h2><p>صُممت المنصة حول مهام المحتوى اليومية. تجعل القوائم الواضحة والنماذج المركزة والصلاحيات المنظمة إدارة الموقع المعقدة سهلة، بينما يضمن دعم العربية والإنجليزية تجربة عملية لكل أعضاء الفريق.</p>',
+    },
+};
+
+const tungstenPortfolioTranslation: Record<Locale, Record<string, string | string[]>> = {
+  en: { title: 'Tungsten Media Portfolio', category: 'Corporate websites', platform: 'Custom full-stack application' },
+  ar: {
+    title: 'معرض أعمال Tungsten Media',
+    category: 'مواقع شركات',
+    platform: 'برمجة خاصة متكاملة Full-stack',
+    summary: 'موقع احترافي لمعرض أعمال Tungsten Media، يقدّم خدماتها وأعمالها وقدراتها الرقمية بوضوح.',
+    objective: 'إنشاء تجربة واثقة لمعرض الأعمال تساعد العملاء المحتملين على فهم خدمات Tungsten Media والانتقال بسلاسة من استكشاف الأعمال إلى التواصل.',
+    features: [
+      'عرض واضح لخدمات Tungsten Media وقدراتها.',
+      'هيكل يضع معرض الأعمال في قلب التجربة.',
+      'واجهات متجاوبة لتصفح مريح على مختلف الأجهزة.',
+      'دعوات واضحة توجه الزوار نحو التواصل.',
+      'هيكل محتوى جاهز لإضافة المشاريع والخدمات باستمرار.',
+    ],
+    benefits: [
+      'حضور رقمي أقوى وأكثر مصداقية للاستوديو.',
+      'فهم أسهل لنطاق أعمال Tungsten Media.',
+      'وصول أسرع إلى الأمثلة الأكثر صلة بالعملاء المحتملين.',
+      'أساس مرن لإضافة دراسات الحالة والخدمات مستقبلًا.',
+    ],
+    content: '<h2>عن المشروع</h2><p>احتاجت Tungsten Media إلى موقع لمعرض أعمالها يجعل نطاق خدماتها الرقمية وأعمالها المنجزة سهل الفهم من النظرة الأولى.</p><p>صممنا التجربة حول الأعمال نفسها، مع ترتيب واضح للخدمات والمشاريع المختارة ومسارات التواصل لدعم الاكتشاف واتخاذ القرار.</p><h2>منهج العمل</h2><p>يجمع الموقع بين عرض بصري واثق وهيكل محتوى عملي. تساعد الواجهات المتجاوبة وسرد المشاريع المركز والدعوات المباشرة الزائر على الانتقال من فهم الاستوديو إلى بدء محادثة.</p>',
+    note: 'صُمم وطُوّر ليكون الموقع العام ومعرض الأعمال لـ Tungsten Media.',
   },
 };
 
@@ -331,6 +385,8 @@ const appendProjectFeatures = (slug: string, items: string[]) => {
   const features = projectTranslations[slug]?.ar.features;
   if (Array.isArray(features)) features.push(...items);
 };
+projectTranslations['tungsten-media-cms'] = tungstenProjectTranslation;
+projectTranslations['tungsten-media-portfolio'] = tungstenPortfolioTranslation;
 appendProjectFeatures('ama-investors', ['تنقّل منظم للوصول الأسرع إلى المعلومات المهمة.']);
 appendProjectFeatures('diraks', ['تقييمات العملاء وروابط سناب شات وتيك توك وإنستجرام.']);
 appendProjectFeatures('fajr', ['دمج الاشتراك في النشرة البريدية.']);
