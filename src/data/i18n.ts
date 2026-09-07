@@ -307,6 +307,32 @@ const tungstenProjectTranslation: Record<Locale, Record<string, string | string[
     },
 };
 
+const tungstenPortfolioTranslation: Record<Locale, Record<string, string | string[]>> = {
+  en: { title: 'Tungsten Media Portfolio', category: 'Corporate websites', platform: 'Custom full-stack application' },
+  ar: {
+    title: 'معرض أعمال Tungsten Media',
+    category: 'مواقع شركات',
+    platform: 'برمجة خاصة متكاملة Full-stack',
+    summary: 'موقع احترافي لمعرض أعمال Tungsten Media، يقدّم خدماتها وأعمالها وقدراتها الرقمية بوضوح.',
+    objective: 'إنشاء تجربة واثقة لمعرض الأعمال تساعد العملاء المحتملين على فهم خدمات Tungsten Media والانتقال بسلاسة من استكشاف الأعمال إلى التواصل.',
+    features: [
+      'عرض واضح لخدمات Tungsten Media وقدراتها.',
+      'هيكل يضع معرض الأعمال في قلب التجربة.',
+      'واجهات متجاوبة لتصفح مريح على مختلف الأجهزة.',
+      'دعوات واضحة توجه الزوار نحو التواصل.',
+      'هيكل محتوى جاهز لإضافة المشاريع والخدمات باستمرار.',
+    ],
+    benefits: [
+      'حضور رقمي أقوى وأكثر مصداقية للاستوديو.',
+      'فهم أسهل لنطاق أعمال Tungsten Media.',
+      'وصول أسرع إلى الأمثلة الأكثر صلة بالعملاء المحتملين.',
+      'أساس مرن لإضافة دراسات الحالة والخدمات مستقبلًا.',
+    ],
+    content: '<h2>عن المشروع</h2><p>احتاجت Tungsten Media إلى موقع لمعرض أعمالها يجعل نطاق خدماتها الرقمية وأعمالها المنجزة سهل الفهم من النظرة الأولى.</p><p>صممنا التجربة حول الأعمال نفسها، مع ترتيب واضح للخدمات والمشاريع المختارة ومسارات التواصل لدعم الاكتشاف واتخاذ القرار.</p><h2>منهج العمل</h2><p>يجمع الموقع بين عرض بصري واثق وهيكل محتوى عملي. تساعد الواجهات المتجاوبة وسرد المشاريع المركز والدعوات المباشرة الزائر على الانتقال من فهم الاستوديو إلى بدء محادثة.</p>',
+    note: 'صُمم وطُوّر ليكون الموقع العام ومعرض الأعمال لـ Tungsten Media.',
+  },
+};
+
 export const serviceTranslations: Record<string, Record<Locale, { title: string; text: string; tags: string[] }>> = {
   '01': { en: { title: 'Websites & platforms', text: 'Clear, responsive websites and digital platforms that explain your value and make the next step easy.', tags: ['Responsive websites', 'Web platforms'] }, ar: { title: 'المواقع والمنصات', text: 'مواقع ومنصات رقمية سريعة وواضحة تشرح قيمتك وتجعل الخطوة التالية أسهل.', tags: ['مواقع متجاوبة', 'منصات ويب'] } },
   '02': { en: { title: 'Ecommerce', text: 'Online stores with thoughtful product journeys, focused storytelling, and a smoother path to purchase.', tags: ['Online stores', 'Conversion journeys'] }, ar: { title: 'التجارة الإلكترونية', text: 'متاجر إلكترونية برحلة شراء مدروسة، وقصة واضحة، وطريق أكثر سلاسة من التصفح إلى الطلب.', tags: ['متاجر إلكترونية', 'رحلات تحويل'] } },
@@ -360,6 +386,7 @@ const appendProjectFeatures = (slug: string, items: string[]) => {
   if (Array.isArray(features)) features.push(...items);
 };
 projectTranslations['tungsten-media-cms'] = tungstenProjectTranslation;
+projectTranslations['tungsten-media-portfolio'] = tungstenPortfolioTranslation;
 appendProjectFeatures('ama-investors', ['تنقّل منظم للوصول الأسرع إلى المعلومات المهمة.']);
 appendProjectFeatures('diraks', ['تقييمات العملاء وروابط سناب شات وتيك توك وإنستجرام.']);
 appendProjectFeatures('fajr', ['دمج الاشتراك في النشرة البريدية.']);
